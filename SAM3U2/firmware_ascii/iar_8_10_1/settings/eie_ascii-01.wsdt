@@ -1,10 +1,9 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding=""?>
+
 <Workspace>
     <ConfigDictionary>
-        <CurrentConfigs>
-            <Project>eie_ascii-01/Debug</Project>
-        </CurrentConfigs>
-    </ConfigDictionary>
+        
+    <CurrentConfigs/></ConfigDictionary>
     <WindowStorage>
         <ChildIdMap>
             <TB_CMSISPACK>34048</TB_CMSISPACK>
@@ -72,7 +71,7 @@
                 <ColumnWidth0>26</ColumnWidth0>
                 <ColumnWidth1>1844</ColumnWidth1>
                 <FilterLevel>2</FilterLevel>
-                <LiveFile></LiveFile>
+                <LiveFile/>
                 <LiveLogEnabled>0</LiveLogEnabled>
                 <LiveFilterLevel>-1</LiveFilterLevel>
             </IarPane-34055>
@@ -217,7 +216,7 @@
             <BasePane-34056>
                 <IsVisible>0</IsVisible>
             </BasePane-34056>
-            <IarPane-34056 />
+            <IarPane-34056/>
             <Pane-34057>
                 <ID>34057</ID>
                 <RectRecentFloat>36040000BC050000B60B00006C060000</RectRecentFloat>
@@ -231,7 +230,7 @@
             <BasePane-34057>
                 <IsVisible>0</IsVisible>
             </BasePane-34057>
-            <IarPane-34057 />
+            <IarPane-34057/>
             <Pane-34058>
                 <ID>34058</ID>
                 <RectRecentFloat>36040000BC050000B60B00006C060000</RectRecentFloat>
@@ -251,7 +250,7 @@
                 <ColumnWidth2>856</ColumnWidth2>
                 <ColumnWidth3>380</ColumnWidth3>
                 <FilterLevel>2</FilterLevel>
-                <LiveFile></LiveFile>
+                <LiveFile/>
                 <LiveLogEnabled>0</LiveLogEnabled>
                 <LiveFilterLevel>-1</LiveFilterLevel>
             </IarPane-34058>
@@ -273,7 +272,7 @@
                 <ColumnWidth1>95</ColumnWidth1>
                 <ColumnWidth2>1142</ColumnWidth2>
                 <FilterLevel>2</FilterLevel>
-                <LiveFile />
+                <LiveFile/>
                 <LiveLogEnabled>0</LiveLogEnabled>
                 <LiveFilterLevel>-1</LiveFilterLevel>
             </IarPane-34059>
@@ -290,7 +289,7 @@
             <BasePane-34061>
                 <IsVisible>0</IsVisible>
             </BasePane-34061>
-            <IarPane-34061 />
+            <IarPane-34061/>
             <Pane-34052>
                 <ID>34052</ID>
                 <RectRecentFloat>80F8FFFF9DFFFFFF00FBFFFF2E000000</RectRecentFloat>
@@ -304,7 +303,7 @@
             <BasePane-34052>
                 <IsVisible>0</IsVisible>
             </BasePane-34052>
-            <IarPane-34052 />
+            <IarPane-34052/>
             <Pane-34053>
                 <ID>34053</ID>
                 <RectRecentFloat>80F8FFFF9DFFFFFFA2F9FFFF4E000000</RectRecentFloat>
@@ -318,7 +317,7 @@
             <BasePane-34053>
                 <IsVisible>0</IsVisible>
             </BasePane-34053>
-            <IarPane-34053 />
+            <IarPane-34053/>
             <Pane-34054>
                 <ID>34054</ID>
                 <RectRecentFloat>80F8FFFF9DFFFFFFA2F9FFFF4E000000</RectRecentFloat>
@@ -422,4 +421,6 @@
             </MDIClientArea-0>
         </MDIWindows>
     </WindowStorage>
-</Workspace>
+<Desktop><Static><Workspace><ColumnWidths><Column0>124</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths></Workspace></Static><Windows><Wnd0><Tabs><Tab><Identity>TabID-18469-11533</Identity><TabName>Workspace</TabName><Factory>Workspace</Factory><Session><NodeDict/></Session></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd0></Windows><Editor><Pane/><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor><Positions><Top><Row0><Sizes><Toolbar-07F46800><key>iaridepm.enu1</key></Toolbar-07F46800></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>640</Bottom><Right>198</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>146413</sizeHorzCX><sizeHorzCY>291971</sizeHorzCY><sizeVertCX>146413</sizeVertCX><sizeVertCY>937226</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes/></Row0></Bottom><Float><Sizes/></Float></Positions></Desktop></Workspace>
+
+
