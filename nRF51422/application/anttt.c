@@ -97,7 +97,10 @@ State: AntttSM_Idle
 */
 static void AntttSM_Idle(void)
 {
-    
+    NRF_GPIO->OUTSET = P0_29_LED_RED;
+    NRF_GPIO->OUTSET = P0_28_LED_YLW;
+    NRF_GPIO->OUTSET = P0_27_LED_GRN;
+    NRF_GPIO->OUTSET = P0_26_LED_BLU;
 } 
 
 
