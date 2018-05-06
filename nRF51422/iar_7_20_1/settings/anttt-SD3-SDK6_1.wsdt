@@ -12,7 +12,7 @@
           
           
           
-        <Column0>319</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+        <Column0>187</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
       </Workspace>
       <Build>
         
@@ -21,11 +21,11 @@
         
       <ColumnWidth0>26</ColumnWidth0><ColumnWidth1>829</ColumnWidth1><ColumnWidth2>221</ColumnWidth2><ColumnWidth3>55</ColumnWidth3></Build>
       <TerminalIO/>
-    </Static>
+    <Debug-Log><ColumnWidth0>34</ColumnWidth0><ColumnWidth1>1276</ColumnWidth1></Debug-Log></Static>
     <Windows>
       
       
-    <Wnd2>
+    <Wnd0>
         <Tabs>
           <Tab>
             <Identity>TabID-5485-23732</Identity>
@@ -33,11 +33,11 @@
             <Factory>Workspace</Factory>
             <Session>
               
-            <NodeDict><ExpandedNode>anttt-SD3-SDK6_1</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/Application</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/Application/Include</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/Application/Source</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/_BSP</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/_BSP/Include</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/_BSP/Source</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/_Nordic_SDK_6_1_0</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/_Nordic_SDK_6_1_0/Include</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/_Nordic_SDK_6_1_0/Source</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/_Nordic_SDK_6_1_0/Source/ble_advdata_parser.c</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/_Nordic_SDK_6_1_0/Source/iar_startup_nrf51.s</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/_Nordic_SDK_6_1_0/Source/system_nrf51422.c</ExpandedNode></NodeDict></Session>
+            <NodeDict><ExpandedNode>anttt-SD3-SDK6_1</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/Application</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/Application/Include</ExpandedNode><ExpandedNode>anttt-SD3-SDK6_1/Application/Source</ExpandedNode></NodeDict></Session>
           </Tab>
         </Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd2><Wnd3>
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1>
         <Tabs>
           <Tab>
             <Identity>TabID-28530-26985</Identity>
@@ -45,22 +45,22 @@
             <Factory>Build</Factory>
             <Session/>
           </Tab>
-        </Tabs>
+        <Tab><Identity>TabID-14145-21204</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab></Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd3></Windows>
+      <SelectedTab>0</SelectedTab></Wnd1></Windows>
     <Editor>
       
       
       
       
-    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\bsp\anttt-eief1-01.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>63</YPos2><SelStart2>4373</SelStart2><SelEnd2>4373</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\bsp\anttt-eief1-01.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>177</YPos2><SelStart2>9430</SelStart2><SelEnd2>9435</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\application\anttt.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>47</YPos2><SelStart2>4847</SelStart2><SelEnd2>4847</SelEnd2></Tab><ActiveTab>2</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\nordic_sdk6_1_0\Include\nrf51.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>1187</YPos2><SelStart2>86760</SelStart2><SelEnd2>86773</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\bsp\anttt-eief1-01.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>88</YPos2><SelStart2>4955</SelStart2><SelEnd2>4965</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\bsp\anttt-eief1-01.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>217</YPos2><SelStart2>12614</SelStart2><SelEnd2>12614</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\application\anttt.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>77</YPos2><SelStart2>4868</SelStart2><SelEnd2>4868</SelEnd2></Tab><ActiveTab>2</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\application\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>32</YPos2><SelStart2>2689</SelStart2><SelEnd2>2689</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
     <Positions>
       
       
       
       
       
-    <Top><Row0><Sizes><Toolbar-07875F88><key>iaridepm.enu1</key></Toolbar-07875F88></Sizes></Row0></Top><Left><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>555</Bottom><Right>410</Right><x>-2</x><y>-2</y><xscreen>258</xscreen><yscreen>146</yscreen><sizeHorzCX>188873</sizeHorzCX><sizeHorzCY>213139</sizeHorzCY><sizeVertCX>301611</sizeVertCX><sizeVertCY>813139</sizeVertCY></Rect></Wnd2></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>85</Bottom><Right>1368</Right><x>-2</x><y>-2</y><xscreen>1370</xscreen><yscreen>87</yscreen><sizeHorzCX>1002928</sizeHorzCX><sizeHorzCY>127007</sizeHorzCY><sizeVertCX>188873</sizeVertCX><sizeVertCY>213139</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+    <Top><Row0><Sizes><Toolbar-072C6740><key>iaridepm.enu1</key></Toolbar-072C6740></Sizes></Row0><Row1><Sizes/></Row1></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>540</Bottom><Right>261</Right><x>-2</x><y>-2</y><xscreen>258</xscreen><yscreen>146</yscreen><sizeHorzCX>188873</sizeHorzCX><sizeHorzCY>213139</sizeHorzCY><sizeVertCX>192533</sizeVertCX><sizeVertCY>791241</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>100</Bottom><Right>1368</Right><x>-2</x><y>-2</y><xscreen>1370</xscreen><yscreen>102</yscreen><sizeHorzCX>1002928</sizeHorzCX><sizeHorzCY>148905</sizeHorzCY><sizeVertCX>188873</sizeVertCX><sizeVertCY>213139</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Workspace>
 

@@ -62,6 +62,10 @@ Variable names shall start with "UserApp1_<type>" and be declared as static.
 static fnCode_type UserApp1_pfStateMachine;               /*!< @brief The state machine function pointer */
 //static u32 UserApp1_u32Timeout;                           /*!< @brief Timeout counter used across states */
 
+static u8* pu8RxBufferAddress;
+static u8** ppu8RxNextByte;
+SspConfigurationType Spi_Config;
+SspPeripheralType* AntttTaskSsp;
 
 /**********************************************************************************************************************
 Function Definitions
@@ -75,6 +79,16 @@ Function Definitions
 /*! @protectedsection */                                                                                            
 /*--------------------------------------------------------------------------------------------------------------------*/
 
+void SlaveRxFlowCallback(void)
+{
+    ppu8RxNextByte++;
+}
+
+
+void SlaveTxFlowCallback(void)
+{
+    
+}
 /*!--------------------------------------------------------------------------------------------------------------------
 @fn void UserApp1Initialize(void)
 
@@ -91,15 +105,30 @@ Promises:
 
 */
 void UserApp1Initialize(void)
-{
+{   
+    Spi_Config.SspPeripheral = USART2;
+    Spi_Config.pCsGpioAddress = AT91C_BASE_PIOB;
+    Spi_Config.u32CsPin = PB_22_ANT_USPI2_CS;
+    Spi_Config.eBitOrder = LSB_FIRST;
+    Spi_Config.eSspMode = SPI_SLAVE_FLOW_CONTROL;
+    Spi_Config.fnSlaveRxFlowCallback = &SlaveRxFlowCallback;
+    Spi_Config.fnSlaveTxFlowCallback = &SlaveTxFlowCallback;
+    Spi_Config.pu8RxBufferAddress = pu8RxBufferAddress;
+    Spi_Config.ppu8RxNextByte = ppu8RxNextByte;
+    Spi_Config.u16RxBufferSize = 128;
+     
+    AntttTaskSsp = SspRequest(&Spi_Config);
+    
   /* If good initialization, set state to Idle */
-  if( 1 )
+  if(AntttTaskSsp != NULL)
   {
+    LedOn(GREEN);
     UserApp1_pfStateMachine = UserApp1SM_Idle;
   }
   else
   {
     /* The task isn't properly initialized, so shut it down and don't run */
+    LedOn(RED);
     UserApp1_pfStateMachine = UserApp1SM_Error;
   }
 
@@ -140,7 +169,7 @@ State Machine Function Definitions
 /* What does this state do? */
 static void UserApp1SM_Idle(void)
 {
-    
+        
 } /* end UserApp1SM_Idle() */
      
 

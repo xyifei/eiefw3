@@ -173,6 +173,11 @@
         <option>
           <name>CCDefines</name>
           <state>EIE1</state>
+          <state>NRF_MRDY_SET_REG</state>
+          <state>NRF_SRDY_SET_REG</state>
+          <state>NRF_SPI</state>
+          <state>NRF_SPI_CS_GPIO</state>
+          <state>NRF_SPI_CS_PIN</state>
         </option>
         <option>
           <name>CCPreprocFile</name>

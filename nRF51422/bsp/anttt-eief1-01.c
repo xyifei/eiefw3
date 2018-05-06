@@ -86,10 +86,35 @@ void GpioSetup(void)
   NRF_GPIO->PIN_CNF[P0_12_INDEX] = P0_12_SPI_MISO_CNF;
   NRF_GPIO->PIN_CNF[P0_11_INDEX] = P0_11_SPI_SCK_CNF;
   NRF_GPIO->PIN_CNF[P0_10_INDEX] = P0_10_SPI_CS_CNF;  
-  NRF_GPIO->PIN_CNF[P0_9_INDEX] = P0_9_SPI_MRDY_CNF;
-  NRF_GPIO->PIN_CNF[P0_8_INDEX] = P0_8_SPI_SRDY_CNF;
+  NRF_GPIO->PIN_CNF[P0_09_INDEX] = P0_9_SPI_MRDY_CNF;
+  NRF_GPIO->PIN_CNF[P0_08_INDEX] = P0_8_SPI_SRDY_CNF;
   
 } /* end GpioSetup() */
+
+/*----------------------------------------------------------------------------------------------------------------------
+Function: SpiSetup
+
+Description
+Loads all registers required to set up SPI on the processor.
+
+Requires:
+  - All configurations must match connected hardware.
+
+Promises:
+  - All SPI are set for their required function and start-state
+*/
+void SpiSetup(void)
+{
+    /* Set all of the spi function registers in spi0 */
+    NRF_SPI0->ENABLE = SPI_ENABLE;
+    NRF_SPI0->FREQUENCY = SPI_FREQUENCY;
+    NRF_SPI0->CONFIG = SPI_CONFIG;
+    NRF_SPI0->PSELMISO = SPI_MISO;
+    NRF_SPI0->PSELMOSI = SPI_MOSI;
+    NRF_SPI0->PSELSCK = SPI_SCK;    
+      
+}/*end SpiSetup()*/
+
 
 
 /*----------------------------------------------------------------------------------------------------------------------

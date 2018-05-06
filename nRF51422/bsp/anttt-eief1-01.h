@@ -36,6 +36,7 @@ Type Definitions
 void WatchDogSetup(void);
 void PowerSetup(void);
 void GpioSetup(void);
+void SpiSetup(void);
 void ClockSetup(void);
 void InterruptSetup(void);
 void SysTickSetup(void);
@@ -103,12 +104,12 @@ It is clocked from HFCLK.  To get the desired 1ms tick use a compare period of 0
 #define P0_16_     (u32)0x00010000
 #define P0_15_     (u32)0x00008000
 #define P0_14_     (u32)0x00004000
-#define P0_13_     (u32)0x00002000
-#define P0_12_     (u32)0x00001000
-#define P0_11_     (u32)0x00000800
-#define P0_10_     (u32)0x00000400
-#define P0_09_     (u32)0x00000200
-#define P0_08_     (u32)0x00000100
+#define P0_13_SPI_MOSI    (u32)0x00002000
+#define P0_12_SPI_MISO    (u32)0x00001000
+#define P0_11_SPI_SCK     (u32)0x00000800
+#define P0_10_SPI_CS      (u32)0x00000400
+#define P0_09_SPI_SRDY    (u32)0x00000200
+#define P0_08_SPI_MRDY    (u32)0x00000100
 #define P0_07_     (u32)0x00000080
 #define P0_06_     (u32)0x00000040
 #define P0_05_     (u32)0x00000020
@@ -201,7 +202,7 @@ It is clocked from HFCLK.  To get the desired 1ms tick use a compare period of 0
                                 (GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos) | \
                                 (GPIO_PIN_CNF_SENSE_Disabled   << GPIO_PIN_CNF_SENSE_Pos) )
 
-#define P0_10_SPI_CS_CNF     ( (GPIO_PIN_CNF_DIR_Output       << GPIO_PIN_CNF_DIR_Pos)   | \
+#define P0_10_SPI_CS_CNF      ( (GPIO_PIN_CNF_DIR_Output       << GPIO_PIN_CNF_DIR_Pos)   | \
                                 (GPIO_PIN_CNF_INPUT_Disconnect << GPIO_PIN_CNF_INPUT_Pos) | \
                                 (GPIO_PIN_CNF_PULL_Disabled    << GPIO_PIN_CNF_PULL_Pos)  | \
                                 (GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos) | \
@@ -213,12 +214,26 @@ It is clocked from HFCLK.  To get the desired 1ms tick use a compare period of 0
                                 (GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos) | \
                                 (GPIO_PIN_CNF_SENSE_Disabled   << GPIO_PIN_CNF_SENSE_Pos) )
 
-#define P0_8_SPI_SRDY_CNF    ( (GPIO_PIN_CNF_DIR_Input       << GPIO_PIN_CNF_DIR_Pos)   | \
+#define P0_8_SPI_SRDY_CNF     ( (GPIO_PIN_CNF_DIR_Input       << GPIO_PIN_CNF_DIR_Pos)   | \
                                 (GPIO_PIN_CNF_INPUT_Disconnect << GPIO_PIN_CNF_INPUT_Pos) | \
                                 (GPIO_PIN_CNF_PULL_Disabled    << GPIO_PIN_CNF_PULL_Pos)  | \
                                 (GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos) | \
                                 (GPIO_PIN_CNF_SENSE_Disabled   << GPIO_PIN_CNF_SENSE_Pos) )
                                 
+
+/***********************************************************************************************************************
+##### SPI setup values
+***********************************************************************************************************************/
+
+/* SPI configuration - SPI are set up using the PIN_CNF registers (one register per pin)
+*/
+#define SPI_ENABLE                            (u32)1
+#define SPI_SCK                               (u32)0x00000800
+#define SPI_MOSI                              (u32)0x00002000
+#define SPI_MISO                              (u32)0x00001000
+#define SPI_CONFIG                            (u32)0x00000007
+#define SPI_FREQUENCY                         (u32)0x10000000
+
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* End of File */
