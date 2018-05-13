@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-1943371338
+Checksum=-335465281
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -48,6 +48,10 @@ Stop=1
 [Simulator]
 Freq=10000000
 MultiCoreRunAll=1
+[array_types]
+Fmt0=u8[128]	4	0
+[watch_formats]
+Fmt0={W}3:u32Byte	4	0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

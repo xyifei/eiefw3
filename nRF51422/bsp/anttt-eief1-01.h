@@ -200,7 +200,7 @@ It is clocked from HFCLK.  To get the desired 1ms tick use a compare period of 0
                                 (GPIO_PIN_CNF_INPUT_Disconnect << GPIO_PIN_CNF_INPUT_Pos) | \
                                 (GPIO_PIN_CNF_PULL_Disabled    << GPIO_PIN_CNF_PULL_Pos)  | \
                                 (GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos) | \
-                                (GPIO_PIN_CNF_SENSE_Disabled   << GPIO_PIN_CNF_SENSE_Pos) )
+                                (GPIO_PIN_CNF_SENSE_Low   << GPIO_PIN_CNF_SENSE_Pos) )
 
 #define P0_10_SPI_CS_CNF      ( (GPIO_PIN_CNF_DIR_Output       << GPIO_PIN_CNF_DIR_Pos)   | \
                                 (GPIO_PIN_CNF_INPUT_Disconnect << GPIO_PIN_CNF_INPUT_Pos) | \
@@ -228,11 +228,11 @@ It is clocked from HFCLK.  To get the desired 1ms tick use a compare period of 0
 /* SPI configuration - SPI are set up using the PIN_CNF registers (one register per pin)
 */
 #define SPI_ENABLE                            (u32)1
-#define SPI_SCK                               (u32)0x00000800
-#define SPI_MOSI                              (u32)0x00002000
-#define SPI_MISO                              (u32)0x00001000
-#define SPI_CONFIG                            (u32)0x00000007
-#define SPI_FREQUENCY                         (u32)0x10000000
+#define SPI_SCK                               (u32)11
+#define SPI_MOSI                              (u32)13
+#define SPI_MISO                              (u32)12
+#define SPI_CONFIG                            (u32)0x00000000
+#define SPI_FREQUENCY                         (u32)0x08000000
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/

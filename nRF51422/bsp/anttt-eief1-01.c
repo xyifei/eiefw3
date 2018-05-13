@@ -106,13 +106,17 @@ Promises:
 void SpiSetup(void)
 {
     /* Set all of the spi function registers in spi0 */
-    NRF_SPI0->ENABLE = SPI_ENABLE;
+   
     NRF_SPI0->FREQUENCY = SPI_FREQUENCY;
     NRF_SPI0->CONFIG = SPI_CONFIG;
     NRF_SPI0->PSELMISO = SPI_MISO;
     NRF_SPI0->PSELMOSI = SPI_MOSI;
     NRF_SPI0->PSELSCK = SPI_SCK;    
-      
+    NRF_TWI0->ENABLE=0x00000000UL;
+    NRF_GPIO->OUTCLR=P0_13_SPI_MOSI;
+    NRF_GPIO->OUTSET=P0_11_SPI_SCK;
+    NRF_SPI0->ENABLE = SPI_ENABLE;
+    NRF_GPIO->OUTCLR = P0_10_SPI_CS;
 }/*end SpiSetup()*/
 
 

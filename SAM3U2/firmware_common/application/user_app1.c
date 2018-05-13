@@ -62,10 +62,11 @@ Variable names shall start with "UserApp1_<type>" and be declared as static.
 static fnCode_type UserApp1_pfStateMachine;               /*!< @brief The state machine function pointer */
 //static u32 UserApp1_u32Timeout;                           /*!< @brief Timeout counter used across states */
 
-static u8* pu8RxBufferAddress;
-static u8** ppu8RxNextByte;
 SspConfigurationType Spi_Config;
 SspPeripheralType* AntttTaskSsp;
+static u8 au8RXD[128]="";
+static u8* pu8RxBuffer=&au8RXD[0];
+
 
 /**********************************************************************************************************************
 Function Definitions
@@ -81,7 +82,7 @@ Function Definitions
 
 void SlaveRxFlowCallback(void)
 {
-    ppu8RxNextByte++;
+   pu8RxBuffer++;
 }
 
 
@@ -109,12 +110,12 @@ void UserApp1Initialize(void)
     Spi_Config.SspPeripheral = USART2;
     Spi_Config.pCsGpioAddress = AT91C_BASE_PIOB;
     Spi_Config.u32CsPin = PB_22_ANT_USPI2_CS;
-    Spi_Config.eBitOrder = LSB_FIRST;
+    Spi_Config.eBitOrder = MSB_FIRST;
     Spi_Config.eSspMode = SPI_SLAVE_FLOW_CONTROL;
     Spi_Config.fnSlaveRxFlowCallback = &SlaveRxFlowCallback;
     Spi_Config.fnSlaveTxFlowCallback = &SlaveTxFlowCallback;
-    Spi_Config.pu8RxBufferAddress = pu8RxBufferAddress;
-    Spi_Config.ppu8RxNextByte = ppu8RxNextByte;
+    Spi_Config.pu8RxBufferAddress = &au8RXD[0];
+    Spi_Config.ppu8RxNextByte = &pu8RxBuffer;
     Spi_Config.u16RxBufferSize = 128;
      
     AntttTaskSsp = SspRequest(&Spi_Config);
@@ -169,7 +170,7 @@ State Machine Function Definitions
 /* What does this state do? */
 static void UserApp1SM_Idle(void)
 {
-        
+    AT91C_BASE_US2->US_THR = 0x22;
 } /* end UserApp1SM_Idle() */
      
 

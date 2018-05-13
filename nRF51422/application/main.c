@@ -72,11 +72,12 @@ void main(void)
   InterruptsInitialize();
     
   /* Driver initialization */
-
   ANTIntegrationInitialize();
+
   BLEIntegrationInitialize();
+#if  0
   bleperipheralInitialize();
-  
+#endif 
   /* Application initialization */
   AntttInitialize();
   
