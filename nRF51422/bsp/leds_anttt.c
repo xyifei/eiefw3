@@ -22,7 +22,7 @@ extern volatile u32 G_u32SystemTime1s;                 /* From board-specific so
 
 extern volatile u32 G_u32ApplicationFlags;             /* From main.c */
 
-
+u32 au32LedsAdr[] = {P0_26_LED_BLU, P0_27_LED_GRN, P0_28_LED_YLW, P0_29_LED_RED};
 /***********************************************************************************************************************
 Global variable definitions with scope limited to this local application.
 Variable names shall start with "Led_" and be declared as static.
@@ -37,6 +37,48 @@ Variable names shall start with "Led_" and be declared as static.
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Public functions */
 /*--------------------------------------------------------------------------------------------------------------------*/
+void LedOn(eLedTypes eLedType)
+{
+	if( !LedCheckOn(eLedType) )
+	{
+		NRF_GPIO->OUTSET = au32LedsAdr[eLedType];
+	}
+	
+}
+
+void LedOff(eLedTypes eLedType)
+{
+	if( LedCheckOn(eLedType) )
+	{
+		NRF_GPIO->OUTCLR = au32LedsAdr[eLedType];
+	}
+	
+}
+
+void LedToggle(eLedTypes eLedType)
+{
+	if( LedCheckOn(eLedType) )
+	{
+		NRF_GPIO->OUTCLR = au32LedsAdr[eLedType];
+	}
+	else
+	{
+		NRF_GPIO->OUTSET = au32LedsAdr[eLedType];
+	}
+}
+
+bool LedCheckOn(eLedTypes eLedType)
+{
+	if( NRF_GPIO->IN & au32LedsAdr[eLedType] )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	
+}
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/

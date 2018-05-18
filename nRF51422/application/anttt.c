@@ -30,7 +30,7 @@ Global variable definitions with scope limited to this local application.
 Variable names shall start with "Anttt_<type>" and be declared as static.
 ***********************************************************************************************************************/
 static fnCode_type Anttt_pfnStateMachine;              /* The application state machine function pointer */
-
+static u32 u8RXData=0;
 
 /**********************************************************************************************************************
 Function Definitions
@@ -39,7 +39,6 @@ Function Definitions
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Public functions                                                                                                   */
 /*--------------------------------------------------------------------------------------------------------------------*/
-
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Protected functions                                                                                                */
@@ -96,19 +95,7 @@ State: AntttSM_Idle
 */
 static void AntttSM_Idle(void)
 {
-    static u32 u32time=0;
-    
-    u32time++;
-    if(u32time == 10000)
-    {
-        u32time = 0;
-        NRF_SPI0->TXD = 0x56;
-
-        if(NRF_SPI0->EVENTS_READY == 1)
-        {
-            NRF_SPI0->EVENTS_READY = 0;
-        }
-    }
+    nrf_delay_us(10000); 
 } 
 
 

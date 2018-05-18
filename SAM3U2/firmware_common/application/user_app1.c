@@ -46,14 +46,14 @@ All Global variable names shall start with "G_<type>UserApp1"
 /* New variables */
 volatile u32 G_u32UserApp1Flags;                          /*!< @brief Global state flags */
 
-
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Existing variables (defined in other files -- should all contain the "extern" keyword) */
 extern volatile u32 G_u32SystemTime1ms;                   /*!< @brief From main.c */
 extern volatile u32 G_u32SystemTime1s;                    /*!< @brief From main.c */
 extern volatile u32 G_u32SystemFlags;                     /*!< @brief From main.c */
 extern volatile u32 G_u32ApplicationFlags;                /*!< @brief From main.c */
-
+extern u8 G_au8DebugScanfBuffer[];                        /* From debug.c */
+extern u8 G_u8DebugScanfCharCount;                        /* From debug.c */
 
 /***********************************************************************************************************************
 Global variable definitions with scope limited to this local application.
@@ -66,7 +66,58 @@ SspConfigurationType Spi_Config;
 SspPeripheralType* AntttTaskSsp;
 static u8 au8RXD[128]="";
 static u8* pu8RxBuffer=&au8RXD[0];
-
+static u8 u8RXD=0x00;
+static bool bTimeToPrint = FALSE;
+static bool bJudge = TRUE;
+static bool bPlayerAOrPlayerB = TRUE;
+static u8 au8GameScreen[][51] = \
+	{
+		"012345678901234567890123456789012345678901234567\n\r",
+		"1               |               |               \n\r",
+		"2               |               |               \n\r",
+		"3               |               |               \n\r",
+		"4       1       |       2       |       3       \n\r",
+		"5               |               |               \n\r",
+		"6               |               |               \n\r",
+		"7---------------|---------------|---------------\n\r",
+		"8               |               |               \n\r",
+		"9               |               |               \n\r",
+		"0               |               |               \n\r",
+		"1       4       |       5       |       6       \n\r",
+		"2               |               |               \n\r",
+		"3               |               |               \n\r",
+		"4---------------|---------------|---------------\n\r",
+		"5               |               |               \n\r",
+		"6               |               |               \n\r",
+		"7               |               |               \n\r",
+		"8       7       |       8       |       9       \n\r",
+		"9               |               |               \n\r",
+		"0               |               |               \n\r"
+	};
+static u8 au8GameEnd[][51] = \
+{
+		"012345678901234567890123456789012345678901234567\n\r",
+		"1                                               \n\r",
+		"2        @@@@@@@     @      @     @@@@@@@       \n\r",
+		"3        @           @@@    @     @      @      \n\r",
+		"4        @@@@@@@     @  @   @     @      @      \n\r",
+		"5        @           @   @  @     @      @      \n\r",
+		"6        @@@@@@@     @    @@@     @@@@@@@       \n\r",
+		"7                                               \n\r",
+		"8                                               \n\r",
+		"9                                               \n\r",
+		"0                                               \n\r",
+		"1                                               \n\r",
+		"2                                               \n\r",
+		"3                                               \n\r",
+		"4                                               \n\r",
+		"5                                               \n\r",
+		"6                                               \n\r",
+		"7                                               \n\r",
+		"8                                               \n\r",
+		"9                                               \n\r",
+		"0                                               \n\r"
+};
 
 /**********************************************************************************************************************
 Function Definitions
@@ -82,7 +133,7 @@ Function Definitions
 
 void SlaveRxFlowCallback(void)
 {
-   pu8RxBuffer++;
+   u8RXD = 0xFF & AT91C_BASE_US2->US_RHR;
 }
 
 
@@ -117,9 +168,10 @@ void UserApp1Initialize(void)
     Spi_Config.pu8RxBufferAddress = &au8RXD[0];
     Spi_Config.ppu8RxNextByte = &pu8RxBuffer;
     Spi_Config.u16RxBufferSize = 128;
-     
+  
     AntttTaskSsp = SspRequest(&Spi_Config);
     
+    PrintScreen();
   /* If good initialization, set state to Idle */
   if(AntttTaskSsp != NULL)
   {
@@ -161,7 +213,344 @@ void UserApp1RunActiveState(void)
 /*------------------------------------------------------------------------------------------------------------------*/
 /*! @privatesection */                                                                                            
 /*--------------------------------------------------------------------------------------------------------------------*/
+static void PrintScreen(void)
+{
+	for(u8 i = sizeof(au8GameScreen) / 51, *pu8Point = au8GameScreen[0]; i; i--, pu8Point += 51)
+	{
+		DebugPrintf(pu8Point);
+	}
+}
 
+static void Judgement(void)
+{ 
+  	if(bJudge ==1)
+	{
+		if((au8GameScreen[4][8] == au8GameScreen[4][24] && au8GameScreen[4][8] == au8GameScreen[4][40])
+			||(au8GameScreen[11][8] == au8GameScreen[11][24] && au8GameScreen[11][8] == au8GameScreen[11][40])
+			||(au8GameScreen[18][8] == au8GameScreen[18][24] && au8GameScreen[18][8] == au8GameScreen[18][40])
+			||(au8GameScreen[4][8] == au8GameScreen[11][8] && au8GameScreen[4][8] == au8GameScreen[18][8])
+			||(au8GameScreen[4][24] == au8GameScreen[11][24] && au8GameScreen[4][24] == au8GameScreen[18][24])
+			||(au8GameScreen[4][40] == au8GameScreen[11][40] && au8GameScreen[4][40] == au8GameScreen[18][40])
+			||(au8GameScreen[4][8] == au8GameScreen[11][24] && au8GameScreen[4][8]== au8GameScreen[18][40])
+			||(au8GameScreen[4][40] == au8GameScreen[11][24] && au8GameScreen[4][40]== au8GameScreen[18][8]))
+		{
+			for(u8 i = sizeof(au8GameEnd) / 51, *pu8Point = au8GameEnd[0]; i; i--, pu8Point += 51)
+			{
+				DebugPrintf(pu8Point);
+			}
+            
+			bJudge = FALSE;
+		}
+	}
+}
+
+static void PlayerA(void)
+{
+	static u8 au8Buffer[5];
+    static bool bRepeat = FALSE;
+
+    if(DebugScanf(au8Buffer))
+    {
+        switch(au8Buffer[0]) 
+        {
+            case '1':
+            {
+                if((au8GameScreen[4][8] == 'O')||(au8GameScreen[4][8] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[4][8] = 'X';
+                }
+                
+                break;
+            }
+            case '2':
+            {
+                if((au8GameScreen[4][24] == 'O')||(au8GameScreen[4][24] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[4][24] = 'X';
+                }
+                break;
+            }
+            case '3':
+            {
+                if((au8GameScreen[4][40] == 'O')||(au8GameScreen[4][40] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[4][40] = 'X';
+                }
+                
+                break;
+            }
+            case '4':
+            {
+                if((au8GameScreen[11][8] == 'O')||(au8GameScreen[11][8] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[11][8] = 'X';
+                }
+                
+                break;
+            }
+            case '5':
+            {
+                if((au8GameScreen[11][24] == 'O')||(au8GameScreen[11][24] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[11][24] = 'X';
+                }
+                
+                break;
+            }
+            case '6':
+            {
+                if((au8GameScreen[11][40] == 'O')||(au8GameScreen[11][40] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[11][40] = 'X';
+                }
+                
+                break;
+            }
+            case '7':
+            {
+                if((au8GameScreen[18][8] == 'O')||(au8GameScreen[18][8] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[18][8] = 'X';
+                }
+                
+                break;
+            }
+            case '8':
+            {
+                if((au8GameScreen[18][24] == 'O')||(au8GameScreen[18][24] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[18][24] = 'X';
+                }
+                
+                break;
+            }
+            case '9':
+            {
+                if((au8GameScreen[18][40] == 'O')||(au8GameScreen[18][40] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[18][40] = 'X';
+                }
+
+                break;
+            }
+            default:
+            {
+                break; 
+            }
+        }
+        
+        if(bRepeat == TRUE)
+        {
+            DebugPrintf("Wrong input");
+        }
+        else
+        {
+            bTimeToPrint = TRUE;
+            bPlayerAOrPlayerB = FALSE; 
+        }
+    }
+	
+}
+
+static void PlayerB(void)
+{
+    static u8 u8New=0x00;
+    static bool bRepeat = FALSE;
+    
+    if(u8New != u8RXD)
+    {
+        u8New = u8RXD;
+
+        switch(u8RXD) 
+        {
+            case 0x11:
+            {
+                if((au8GameScreen[4][8] == 'O')||(au8GameScreen[4][8] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[4][8] = 'O';
+                }
+                
+                break;
+            }
+            case 0x12:
+            {
+                if((au8GameScreen[4][24] == 'O')||(au8GameScreen[4][24] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[4][24] = 'O';
+                }
+                break;
+            }
+            case 0x13:
+            {
+                if((au8GameScreen[4][40] == 'O')||(au8GameScreen[4][40] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[4][40] = 'O';
+                }
+                
+                break;
+            }
+            case 0x21:
+            {
+                if((au8GameScreen[11][8] == 'O')||(au8GameScreen[11][8] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[11][8] = 'O';
+                }
+                
+                break;
+            }
+            case 0x22:
+            {
+                if((au8GameScreen[11][24] == 'O')||(au8GameScreen[11][24] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[11][24] = 'O';
+                }
+                
+                break;
+            }
+            case 0x23:
+            {
+                if((au8GameScreen[11][40] == 'O')||(au8GameScreen[11][40] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[11][40] = 'O';
+                }
+                
+                break;
+            }
+            case 0x31:
+            {
+                if((au8GameScreen[18][8] == 'O')||(au8GameScreen[18][8] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[18][8] = 'O';
+                }
+                
+                break;
+            }
+            case 0x32:
+            {
+                if((au8GameScreen[18][24] == 'O')||(au8GameScreen[18][24] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[18][24] = 'O';
+                }
+                
+                break;
+            }
+            case 0x33:
+            {
+                if((au8GameScreen[18][40] == 'O')||(au8GameScreen[18][40] == 'X'))
+                {
+                    bRepeat = TRUE;
+                }
+                else
+                {
+                    bRepeat =FALSE;
+                    au8GameScreen[18][40] = 'O';
+                }
+
+                break;
+            }
+            default:
+            {
+                break; 
+            } 
+        }
+        
+        if(bRepeat)
+        {
+            DebugPrintf("Wrong input");
+        }
+        else
+        {
+            bTimeToPrint = TRUE;
+            bPlayerAOrPlayerB = TRUE;
+        }
+    }
+
+}
 
 /**********************************************************************************************************************
 State Machine Function Definitions
@@ -170,7 +559,32 @@ State Machine Function Definitions
 /* What does this state do? */
 static void UserApp1SM_Idle(void)
 {
-    AT91C_BASE_US2->US_THR = 0x22;
+    if(bPlayerAOrPlayerB)
+    {
+        PlayerA();
+    }
+    else
+    {
+        PlayerB();
+    }
+    
+  	if(bTimeToPrint)
+  	{     
+  		PrintScreen();
+		bTimeToPrint = FALSE;
+        
+        if(bPlayerAOrPlayerB)
+        {
+            DebugPrintf("Your turn:");
+        }
+        else
+        {
+            DebugPrintf("BLE turn:");
+        }
+  	}
+    
+  	Judgement();
+    
 } /* end UserApp1SM_Idle() */
      
 

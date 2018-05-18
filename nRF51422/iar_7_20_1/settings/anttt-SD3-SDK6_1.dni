@@ -20,7 +20,7 @@ Stop=1
 Freq=10000000
 MultiCoreRunAll=1
 [DebugChecksum]
-Checksum=1370470905
+Checksum=-1636745829
 [CodeCoverage]
 Enabled=_ 0
 [Exceptions]
@@ -52,6 +52,9 @@ ITMportsEnable=0
 ITMportsTermIO=0
 ITMportsLogFile=0
 ITMlogFile=$PROJ_DIR$\ITM.log
+[watch_formats]
+Fmt0={W}1:u16test	4	0
+Fmt1={W}1:u8RXData	3	0
 [SWOTraceWindow]
 PcSampling=0
 InterruptLogs=0
@@ -99,7 +102,7 @@ Exclusions=
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\bsp\interrupts.c}.96.1" 0 0 1 "" 0 "" 0
+Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\application}.96.1" 0 0 1 "" 0 "" 0
 Count=1
 [Aliases]
 Count=0

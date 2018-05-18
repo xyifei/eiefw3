@@ -77,18 +77,21 @@ Promises:
 */
 void GpioSetup(void)
 {
-  /* Set all of the pin function registers in port 0 */
-  NRF_GPIO->PIN_CNF[P0_29_INDEX] = P0_29_LED_RED_CNF;
-  NRF_GPIO->PIN_CNF[P0_28_INDEX] = P0_28_LED_YLW_CNF;
-  NRF_GPIO->PIN_CNF[P0_27_INDEX] = P0_27_LED_GRN_CNF;
-  NRF_GPIO->PIN_CNF[P0_26_INDEX] = P0_26_LED_BLU_CNF;
-  NRF_GPIO->PIN_CNF[P0_13_INDEX] = P0_13_SPI_MOSI_CNF;
-  NRF_GPIO->PIN_CNF[P0_12_INDEX] = P0_12_SPI_MISO_CNF;
-  NRF_GPIO->PIN_CNF[P0_11_INDEX] = P0_11_SPI_SCK_CNF;
-  NRF_GPIO->PIN_CNF[P0_10_INDEX] = P0_10_SPI_CS_CNF;  
-  NRF_GPIO->PIN_CNF[P0_09_INDEX] = P0_9_SPI_MRDY_CNF;
-  NRF_GPIO->PIN_CNF[P0_08_INDEX] = P0_8_SPI_SRDY_CNF;
-  
+    /* Set all of the pin function registers in port 0 */
+    NRF_GPIO->PIN_CNF[P0_29_INDEX] = P0_29_LED_RED_CNF;
+    NRF_GPIO->PIN_CNF[P0_28_INDEX] = P0_28_LED_YLW_CNF;
+    NRF_GPIO->PIN_CNF[P0_27_INDEX] = P0_27_LED_GRN_CNF;
+    NRF_GPIO->PIN_CNF[P0_26_INDEX] = P0_26_LED_BLU_CNF;
+    NRF_GPIO->PIN_CNF[P0_13_INDEX] = P0_13_SPI_MOSI_CNF;
+    NRF_GPIO->PIN_CNF[P0_12_INDEX] = P0_12_SPI_MISO_CNF;
+    NRF_GPIO->PIN_CNF[P0_11_INDEX] = P0_11_SPI_SCK_CNF;
+    NRF_GPIO->PIN_CNF[P0_10_INDEX] = P0_10_SPI_CS_CNF;  
+    NRF_GPIO->PIN_CNF[P0_09_INDEX] = P0_9_SPI_MRDY_CNF;
+    NRF_GPIO->PIN_CNF[P0_08_INDEX] = P0_8_SPI_SRDY_CNF;
+    NRF_GPIO->OUTCLR = P0_13_SPI_MOSI;
+    NRF_GPIO->OUTSET = P0_11_SPI_SCK;
+    NRF_GPIO->OUTSET = P0_10_SPI_CS;
+    
 } /* end GpioSetup() */
 
 /*----------------------------------------------------------------------------------------------------------------------
@@ -105,18 +108,16 @@ Promises:
 */
 void SpiSetup(void)
 {
-    /* Set all of the spi function registers in spi0 */
-   
+    /* Set all of the spi function registers in spi0 */  
     NRF_SPI0->FREQUENCY = SPI_FREQUENCY;
     NRF_SPI0->CONFIG = SPI_CONFIG;
     NRF_SPI0->PSELMISO = SPI_MISO;
     NRF_SPI0->PSELMOSI = SPI_MOSI;
     NRF_SPI0->PSELSCK = SPI_SCK;    
-    NRF_TWI0->ENABLE=0x00000000UL;
-    NRF_GPIO->OUTCLR=P0_13_SPI_MOSI;
-    NRF_GPIO->OUTSET=P0_11_SPI_SCK;
+    NRF_TWI0->ENABLE = 0x00000000UL;
     NRF_SPI0->ENABLE = SPI_ENABLE;
     NRF_GPIO->OUTCLR = P0_10_SPI_CS;
+    
 }/*end SpiSetup()*/
 
 

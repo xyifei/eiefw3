@@ -19,6 +19,7 @@ RESULT FROM USING THIS FIRMWARE IN WHOLE OR IN PART.
 /******************************************************************************
 Type Definitions
 ******************************************************************************/
+typedef enum {BLUE = 0, GREEN, YELLOW, RED} eLedTypes;
 
 /******************************************************************************
 * Constants
@@ -29,6 +30,10 @@ Type Definitions
 * Function Declarations
 ******************************************************************************/
 /* Public Functions */
+void LedOn(eLedTypes);
+void LedOff(eLedTypes);
+void LedToggle(eLedTypes);
+bool LedCheckOn(eLedTypes);
 
 /* Protected Functions */
 
